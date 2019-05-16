@@ -1,11 +1,10 @@
 import React from 'react';
-import faker from 'faker';
 import PropTypes from 'prop-types';
 
-const CommentDetail = ({ author, timeAgo, post }) => (
+const CommentDetail = ({ author, timeAgo, content, avatar }) => (
   <div className="comment">
     <a href="/" className="avatar">
-      <img alt="avatar" src={faker.image.avatar()} />
+      <img alt="avatar" src={avatar} />
     </a>
     <div className="content">
       <a href="/" className="author">
@@ -14,7 +13,7 @@ const CommentDetail = ({ author, timeAgo, post }) => (
       <div className="metadata">
         <span className="date">{timeAgo} </span>
       </div>
-      <div className="text">{post}</div>
+      <div className="text">{content}</div>
     </div>
   </div>
 );
@@ -22,7 +21,8 @@ const CommentDetail = ({ author, timeAgo, post }) => (
 CommentDetail.propTypes = {
   author: PropTypes.string,
   timeAgo: PropTypes.string,
-  post: PropTypes.string,
+  content: PropTypes.string,
+  avatar: PropTypes.string,
 };
 
 export default CommentDetail;

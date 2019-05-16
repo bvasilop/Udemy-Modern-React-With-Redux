@@ -1,16 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import faker from 'faker';
 import CommentDetail from './CommentDetail';
+import ApprovalCard from './ApprovalCard';
 
 const App = () => (
   <div className="ui container comments">
-    <CommentDetail author="Sam" timeAgo="Today at 4:00PM" post="Hey there" />
-    <CommentDetail
-      author="Alex"
-      timeAgo="Yesterday at 6:00PM"
-      post="What's happening"
-    />
-    <CommentDetail author="Jane" timeAgo="Tomorrow at 2:00PM" post="Hi there" />
+    <ApprovalCard>
+      <CommentDetail
+        author="Sam"
+        timeAgo={faker.date.weekday()}
+        content={faker.lorem.sentence()}
+        avatar={faker.image.avatar()}
+      />
+    </ApprovalCard>
+    <ApprovalCard>
+      <CommentDetail
+        author="Alex"
+        timeAgo={faker.date.weekday()}
+        content={faker.lorem.sentence()}
+        avatar={faker.image.avatar()}
+      />
+    </ApprovalCard>
+    <ApprovalCard>
+      <CommentDetail
+        author="Jane"
+        timeAgo={faker.date.weekday()}
+        content={faker.lorem.sentence()}
+        avatar={faker.image.avatar()}
+      />
+    </ApprovalCard>
   </div>
 );
 
