@@ -8,7 +8,7 @@ const App = () => (
   <div className="ui container comments">
     <ApprovalCard>
       <CommentDetail
-        author="Sam"
+        author={faker.name.firstName()}
         timeAgo={faker.date.weekday()}
         content={faker.lorem.sentence()}
         avatar={faker.image.avatar()}
@@ -16,7 +16,7 @@ const App = () => (
     </ApprovalCard>
     <ApprovalCard>
       <CommentDetail
-        author="Alex"
+        author={faker.name.firstName()}
         timeAgo={faker.date.weekday()}
         content={faker.lorem.sentence()}
         avatar={faker.image.avatar()}
@@ -24,7 +24,23 @@ const App = () => (
     </ApprovalCard>
     <ApprovalCard>
       <CommentDetail
-        author="Jane"
+        author={faker.name.firstName()}
+        timeAgo={faker.date.weekday()}
+        content={faker.lorem.sentence()}
+        avatar={faker.image.avatar()}
+      />
+    </ApprovalCard>
+    <ApprovalCard>
+      <CommentDetail
+        author={faker.name.firstName()}
+        timeAgo={faker.date.weekday()}
+        content={faker.lorem.sentence()}
+        avatar={faker.image.avatar()}
+      />
+    </ApprovalCard>
+    <ApprovalCard>
+      <CommentDetail
+        author={faker.name.firstName()}
         timeAgo={faker.date.weekday()}
         content={faker.lorem.sentence()}
         avatar={faker.image.avatar()}
