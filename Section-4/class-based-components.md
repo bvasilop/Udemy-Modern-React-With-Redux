@@ -18,6 +18,7 @@
 ton of built in functionality from this other class called **React.Component** into our class.
 In other words that we are sub-classing React Component.
 We're just borrowing functionality into our app class.
+* React says we have to define `render()` in a **class** based component or it will not work.
 
 ```javascript
 import React from 'react'
@@ -33,4 +34,4 @@ export default class App extends React.Component {
 }
 ```
 
-![class components](./class-components-rules.png)
+![class components rules](./class-components-rules.png)
