@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 // import SeasonDisplay from './SeasonDisplay';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { lat: null, long: null, errorMessage: '' };
-  }
+  state = { lat: null, long: null, errorMessage: '' };
 
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
