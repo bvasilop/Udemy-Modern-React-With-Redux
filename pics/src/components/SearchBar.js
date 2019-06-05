@@ -17,7 +17,7 @@ export default class SearchBar extends React.Component {
             <input
               type="text"
               placeholder="Search..."
-              onChange={event => console.log(event.target.value)}
+              onChange={this.onInputChange}
             />
           </div>
         </form>
