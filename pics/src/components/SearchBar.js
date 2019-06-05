@@ -1,19 +1,25 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 
 export default class SearchBar extends React.Component {
+  state = { term: '' };
+
   render() {
+    const { term } = this.state;
     return (
       <div className="ui segment">
         <form className="ui form">
           <div className="field">
-            <label>Image Search</label>
+            <label htmlFor="image-search">Image Search</label>
             <input
+              id="image-search"
               type="text"
               placeholder="Search..."
-              onChange={e => console.log(e.target.value)}
+              value={term}
+              onChange={e => this.setState({ term: e.target.value })}
             />
           </div>
         </form>
