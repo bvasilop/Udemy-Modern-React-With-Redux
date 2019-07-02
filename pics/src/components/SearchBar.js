@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -8,7 +9,7 @@ export default class SearchBar extends React.Component {
 
   onFormSubmit = event => {
     event.preventDefault();
-    console.log(this.state.term);
+    this.props.onSubmit(this.state.term);
   };
 
   render() {
