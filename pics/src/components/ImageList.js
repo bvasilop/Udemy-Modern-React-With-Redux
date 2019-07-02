@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 const ImageList = props => {
-  const images = props.images.map(image => (
-    <img alt={image.description} key={image.id} src={image.urls.regular} />
+  const images = props.images.map(({ description, id, urls }) => (
+    <img alt={description} key={id} src={urls.regular} />
   ));
 
   return <div>{images}</div>;
