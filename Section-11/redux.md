@@ -18,4 +18,6 @@
 
 ![Redux analogy](./redux-analogy-3.png)
 
+- A customer is going to fill out a form handed off to the former receiver. The pharmacy will make a copy of it and then hand it off to each department along with that department's little slice of data.
+
 ![Redux analogy](./redux-analogy-4.png)
