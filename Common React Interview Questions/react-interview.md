@@ -24,8 +24,10 @@ _If using react hooks, they use a completely different method of handling lifecy
   - because you don't want the user to have direct access to `this`
   - static methods are class methods and not instance methods
   - you can not directly set state using `this.setState`
-- ## **How does it change state?**
-  - it returns newState or null
+
+**How does it change state ?**
+
+- it returns newState or null
 - this method is rarely used
 
 ### Render
@@ -96,3 +98,53 @@ _If using react hooks, they use a completely different method of handling lifecy
 
 - If you're using a presentational or functional component, you can use `React.memo`
 - Uses memoization which prevents having to calculate the whole thing each time
+
+## Explain error boundaries (lifecycle methods)
+
+![Lifecycle methods](./error-boundaries.png)
+
+- create a component and wrap it around your component.
+- `static getDerivedStateFromError` derives `state` from the error. When the error happens, you catch the error and change the state accordingly.
+  - Can use a fallback component which will render itself in case of an error. Ex. error message...
+- `componentDidCatch` can log error that is happening.
+
+## Best lifecycle methods for making API calls
+
+### `componentDidMount`
+
+- when you make an API request, you get data returned from a server and most likely the state is updated. This results in re-rendering of the component.
+- When you make the API call, you want to make sure to use `componentDidMount` to make sure the `DOM` is ready.
+
+## React Patterns
+
+![Lifecycle methods](./react-patterns.png)
+
+### Context API
+
+- makes it easier to pass `props` into a deeply nested component.
+- allows you to access `props` by using a special tag to wrap everything.
+  - `Provider Component` is higher in the tree that accepts `props`
+  - `Consumer Component` is used anywhere you want to use `props`
+
+## Render Props
+
+- Primarily uses children as functions
+- instead of passing a component as a component you pass in a function as a component and render it.
+
+## Presentational Component Pattern
+
+- written as stateless functional components.
+
+## Why would you use React in your project
+
+- Look for stability in frameworks before using
+- React is functional programming that allows you to use a lot of JavaScript.
+- If you have a lot of JavaScript engineers, it might be a better fit than Angular which uses its own syntax.
+
+## What is the css-in-js pattern in JavaScript
+
+- you can pass css as javascript literal objects to create inline css so it doesn't pollute pollute other parts.
+- Another advantage is if you have a prop, you can conditionally render.
+- You can import css styles to javascript objects (share common styles across projects)
+
+## Why can't you update `state` directly without `setState()`
