@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
+// @flow
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Clock.css';
