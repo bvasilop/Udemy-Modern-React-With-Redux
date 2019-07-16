@@ -187,3 +187,46 @@ _If using react hooks, they use a completely different method of handling lifecy
 ## What are some of the advantages of Redux
 
 ![Lifecycle methods](./redux-alt.png)
+
+## What is Redux Middleware
+
+![Lifecycle methods](./middleware.png)
+
+- Middleware comes into play when redux actions are dispatched to the store but post requests fail to make it to the database.
+
+![Lifecycle methods](./middleware-2.png)
+
+- Takes care of the post request with the database first before continuing to dispatch actions to the store.
+- Used so your database and local store are always in sync.
+
+## What is the difference between Redux Saga and Redux Thunk
+
+- Redux Saga and Redux Thunk are both middleware
+- They both accomplish the same thing but go about it a little differently.
+
+### Redux Thunk
+
+![Lifecycle methods](./redux-thunk.png)
+
+- Instead of dispatching an action directly, you create an action creator which is dispensed after promise is resolved. That's why it is middleware.
+- Is asynchronous
+- Uses promises
+- When promise is resolved with a positive response, then you send an action.
+- Response determines if an action should be dispatched or not.
+
+### Redux Saga
+
+![Lifecycle methods](./redux-saga.png)
+
+-Instead of using an action creator or function, you just dispatch the action.
+
+- Saga catches that action from the middle
+- Is asynchronous
+- Once receives a positive response from the server it dispatches an action to the store
+
+![Lifecycle methods](./react-saga.png)
+
+- Uses a **generator function** which is more synchronous than how **Thunk** handles things with promises.
+- Clearer syntax than **Thunk**
+- Uses code blocks to execute
+- You can cancel actions in **Saga** but not in **Thunk**
