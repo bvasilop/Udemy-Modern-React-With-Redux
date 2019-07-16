@@ -4,11 +4,11 @@
 
 - **Name Lifecycle Methods and Their Purpose**
 
-![Lifecycle methods](./lifecycle-methods.png)
+![Lifecycle methods](./lifecycle-methods.png)react
 
 _If using react hooks, they use a completely different method of handling lifecycle methods._
 
-- Their are two phases of rendering initial rendering and re-rendering and they have different lifecycle methods.
+- There are two phases of rendering initial rendering and re-rendering and they have different lifecycle methods.
 
 ### Constructor
 
@@ -148,3 +148,42 @@ _If using react hooks, they use a completely different method of handling lifecy
 - You can import css styles to javascript objects (share common styles across projects)
 
 ## Why can't you update `state` directly without `setState()`
+
+- `setState()` will always trigger a re-rendering of the component. You do want to re-render when the `state` has changed so your **View** is updated.
+  - When you use `setState()` you are actually making a copy of the `state` and then modifying and passing it to `setState()`. You can't achieve this properly when setting `state` directly. You are also not allowed to use update `state` directly without errors.
+
+## How many ways can you conditionally render in React
+
+![Lifecycle methods](./react-if-statement.png)
+
+![Lifecycle methods](./conditional-render.png)
+
+![Lifecycle methods](./conditional-render-2.png)
+
+## What are Fragments and why do we use them in React
+
+![Lifecycle methods](./component-render.png)
+
+- Whenever you render a component, you can only render a single child (the above is not allowed in React)
+
+![Lifecycle methods](./react-fragment.png)
+
+- React found a way around this using `React.Fragment`
+
+## How do you do code splitting in React
+
+- When the React code compiles to the bundler, a single bundle is created of the entire application into one file.
+- React came up with a way to split code into multiple bundles in case someone was using only a few pages of a site instead of the whole thing.
+
+![Lifecycle methods](./lazy-loading.png)
+
+- React introduced **Dynamic Import** or **Lazy Loading** for importing individual components.
+
+![Lifecycle methods](./fallback-component.png)
+
+- Loads asynchronously.
+- Renders fallback component.
+
+## What are some of the advantages of Redux
+
+![Lifecycle methods](./redux-alt.png)
