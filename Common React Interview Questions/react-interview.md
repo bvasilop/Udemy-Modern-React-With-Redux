@@ -230,3 +230,39 @@ _If using react hooks, they use a completely different method of handling lifecy
 - Clearer syntax than **Thunk**
 - Uses code blocks to execute
 - You can cancel actions in **Saga** but not in **Thunk**
+
+## How to optimize a React App
+
+- Ask Questions for abstract questions where you don't know the parameters!
+- If it's performance based, you might want to run a profiler to determine if there are any bottlenecks with plugins...
+- Find unnecessary re-rendering components and correct with..
+  ![Lifecycle methods](./unnecessary-re-rendering.png)
+- If package size is too big you can use lazy loading **`React.lazy`**
+- You may find that your API is slow so you make have to make adjustments for the server side.
+- Assets like videos, images and CDN issues can cause bottlenecks.
+- Changing unnecessary **`Class`** components (buttons,...)to **`Functional`** components can reduce bottlenecks as well.
+- Using constructor functions with event handlers can slow things down. Use arrow **`=>`** functions instead.
+- External packages that can analyze app speed and performance.
+
+## Explain the Virtual `DOM`
+
+- Updating the **`DOM`** is expensive because every time there is an update, you have to repaint the **`DOM`**
+- ReactDOM came along to update more quickly and less frequently.
+- ReactDOM has a DOM tree of it's own which is called the virtual DOM and any updates to the virtual DOM tree are created through the change in props or state.
+
+## Projects
+
+### Debugging questions and how to handle them.
+
+- Could be a problem with event handlers that are not bound properly to the class.
+- State may not be updating properly
+- Typos or syntax errors
+- go step-by-step to debug
+- uses console as much as possible
+
+### Build it from scratch (interview)
+
+- Build a TODO list
+- Use create-react-app
+- Create components not everything in App.js
+- Add tests (Jest)
