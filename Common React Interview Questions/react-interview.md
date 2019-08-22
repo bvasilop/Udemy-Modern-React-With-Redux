@@ -266,3 +266,7 @@ _If using react hooks, they use a completely different method of handling lifecy
 - Use create-react-app
 - Create components not everything in App.js
 - Add tests (Jest)
+
+### Simple Counter example using React Hooks and useState()
+
+![React Hooks Set-State](./react-hooks-setState.png)
