@@ -470,7 +470,7 @@ class MyComponent extends React.Component {
 }
 ```
 
-## React: Bind 'this' to a Class Method
+## React: Bind `'this'` to a Class Method
 
 - In addition to setting and updating state, you can also define methods for your component class. A class method typically needs to use the this keyword so it can access properties on the class (such as state and props) inside the scope of the method. There are a few ways to allow your class methods to access this.
 
@@ -1626,7 +1626,7 @@ store.dispatch(loginAction());
 
 ## Redux: Handle an Action in the Store
 
-After an action is created and dispatched, the Redux store needs to know how to respond to that action. This is the job of a reducer function. Reducers in Redux are responsible for the state modifications that take place in response to actions. A reducer takes state and action as arguments, and it always returns a new state. It is important to see that this is the only role of the reducer. It has no side effects — it never calls an API endpoint and it never has any hidden surprises. The reducer is simply a pure function that takes state and action, then returns new state.
+- After an action is created and dispatched, the Redux store needs to know how to respond to that action. This is the job of a reducer function. Reducers in Redux are responsible for the state modifications that take place in response to actions. A reducer takes state and action as arguments, and it always returns a new state. It is important to see that this is the only role of the reducer. It has no side effects — it never calls an API endpoint and it never has any hidden surprises. The reducer is simply a pure function that takes state and action, then returns new state.
 
 - Another key principle in Redux is that state is read-only. In other words, the reducer function must always return a new copy of state and never modify state directly. Redux does not enforce state immutability, however, you are responsible for enforcing it in the code of your reducer functions. You'll practice this in later challenges.
 
@@ -1660,7 +1660,7 @@ const loginAction = () => {
 
 ## Redux: Use a Switch Statement to Handle Multiple Actions
 
-You can tell the Redux store how to handle multiple action types. Say you are managing user authentication in your Redux store. You want to have a state representation for when users are logged in and when they are logged out. You represent this with a single state object with the property authenticated. You also need action creators that create actions corresponding to user login and user logout,along with the action objects themselves.
+- You can tell the Redux store how to handle multiple action types. Say you are managing user authentication in your Redux store. You want to have a state representation for when users are logged in and when they are logged out. You represent this with a single state object with the property authenticated. You also need action creators that create actions corresponding to user login and user logout,along with the action objects themselves.
 
 - The code editor has a store, actions, and action creators set up for you. Fill in the reducer function to handle multiple authentication actions. Use a JavaScript switch statement in the reducer to respond to different action events. This is a standard pattern in writing Redux reducers. The switch statement should switch over action.type and return the appropriate authentication state.
 
@@ -1981,4 +1981,262 @@ const decAction = () => {
 }; // define an action creator for decrementing
 
 const store = Redux.createStore(counterReducer); // define the Redux store here, passing in your reducers
+```
+
+## Redux: Never Mutate State
+
+- These final challenges describe several methods of enforcing the key principle of state immutability in Redux. Immutable state means that you never modify state directly, instead, you return a new copy of state.
+
+- If you took a snapshot of the state of a Redux app over time, you would see something like state 1, state 2, state 3,state 4, ... and so on where each state may be similar to the last, but each is a distinct piece of data. This immutability, in fact, is what provides such features as time-travel debugging that you may have heard about.
+
+- Redux does not actively enforce state immutability in its store or reducers, that responsibility falls on the programmer. Fortunately, JavaScript (especially ES6) provides several useful tools you can use to enforce the immutability of your state, whether it is a string, number, array, or object. Note that strings and numbers are primitive values and are immutable by nature. In other words, 3 is always 3. You cannot change the value of the number 3. An array or object, however, is mutable. In practice, your state will probably consist of an array or object, as these are useful data structures for representing many types of information.
+
+- There is a store and reducer in the code editor for managing to-do items. Finish writing the ADD_TO_DO case in the reducer to append a new to-do to the state. There are a few ways to accomplish this with standard JavaScript or ES6. See if you can find a way to return a new array with the item from action.todo appended to the end.
+
+```jsx
+const ADD_TO_DO = 'ADD_TO_DO';
+
+// A list of strings representing tasks to do:
+const todos = [
+  'Go to the store',
+  'Clean the house',
+  'Cook dinner',
+  'Learn to code',
+];
+
+const immutableReducer = (state = todos, action) => {
+  switch(action.type) {
+    case ADD_TO_DO:
+      // don't mutate state here or the tests will fail
+      return [...state, action.todo]
+    default:
+      return state;
+  }
+};
+
+// an example todo argument would be 'Learn React',
+const addToDo = (todo) => {
+  return {
+    type: ADD_TO_DO,
+    todo
+  }
+}
+
+const store = Redux.createStore(immutableReducer);
+```
+
+## Redux: Use the Spread Operator on Arrays
+
+- One solution from ES6 to help enforce state immutability in Redux is the spread operator: .... The spread operator has a variety of applications, one of which is well-suited to the previous challenge of producing a new array from an existing array. This is relatively new, but commonly used syntax. For example, if you have an array myArray and write:
+
+`let newArray = [...myArray];`
+
+- `newArray` is now a clone of `myArray`. Both arrays still exist separately in memory. If you perform a mutation like `newArray.push(5)`, `myArray` doesn't change. The ... effectively spreads out the values in `myArray` into a new array. To clone an array but add additional values in the new array, you could write `[...myArray, 'new value']`. This would return a new array composed of the values in myArray and the string 'new value' as the last value. The spread syntax can be used multiple times in array composition like this, but it's important to note that it only makes a shallow copy of the array. That is to say, it only provides immutable array operations for one-dimensional arrays.
+
+Use the spread operator to return a new copy of state when a to-do is added.
+
+```jsx
+const immutableReducer = (state = ['Do not mutate state!'], action) => {
+  switch(action.type) {
+    case 'ADD_TO_DO':
+      // don't mutate state here or the tests will fail
+      return [...state, action.todo]
+    default:
+      return state;
+  }
+};
+
+const addToDo = (todo) => {
+  return {
+    type: 'ADD_TO_DO',
+    todo
+  }
+}
+
+const store = Redux.createStore(immutableReducer);
+```
+
+## Redux: Remove an Item from an Array
+
+- Time to practice removing items from an array. The spread operator can be used here as well. Other useful JavaScript methods include `slice()` and `concat()`.
+
+- The reducer and action creator were modified to remove an item from an array based on the index of the item. Finish writing the reducer so a new state array is returned with the item at the specific index removed.
+
+```jsxconst immutableReducer = (state = [0,1,2,3,4,5], action) => {
+  switch(action.type) {
+    case 'REMOVE_ITEM':
+      // don't mutate state here or the tests will fail
+      return state.filter(item => item != state[action.index])
+    default:
+      return state;
+  }
+};
+
+const removeItem = (index) => {
+  return {
+    type: 'REMOVE_ITEM',
+    index
+  }
+}
+
+const store = Redux.createStore(immutableReducer);
+```
+
+## Redux: Copy an Object with Object.assign
+
+- The last several challenges worked with arrays, but there are ways to help enforce state immutability when state is an object, too. A useful tool for handling objects is the `Object.assign()` utility. `Object.assign()` takes a target object and source objects and maps properties from the source objects to the target object. Any matching properties are overwritten by properties in the source objects. This behavior is commonly used to make shallow copies of objects by passing an empty object as the first argument followed by the object(s) you want to copy. Here's an example:
+
+`const newObject = Object.assign({}, obj1, obj2);`
+
+- This creates newObject as a new object, which contains the properties that currently exist in obj1 and obj2.
+
+- The Redux state and actions were modified to handle an object for the state. Edit the code to return a new state object for actions with type ONLINE, which set the status property to the string online. Try to use `Object.assign()` to complete the challenge.
+
+- `let newObj = state;` - this isn’t a new object, it’s just a reference to the original object. This isn’t specific to what your doing, it’s how JS works.
+
+- With `Object.assign` though, you can assign to a new object, so if you have `Object.assign({}, {foo: 1, bar: 2}, {foo: 2})` (note the empty object there) it will merge the object on the right with the the next one, so `{foo: 2}` over `{foo: 1, bar: 2}`. That means there’s a new value for foo, so you get `{foo: 2, bar: 2}`. Then it takes that and merges it with the next one, which is an empty object (so you still end up with `{foo: 2, bar: 2}` in this example, but if either of the second or third objects had been references, the end result would have been a new object unconnected to them)
+
+- TL/DR if you want to create a new object with Object.assign, put an empty object in as the first argument, and it will merge any other objects you give into that new object. It’s what’s called a shallow copy.
+
+```jsx
+const defaultState = {
+  user: 'CamperBot',
+  status: 'offline',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+
+const immutableReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case 'ONLINE':
+      // don't mutate state here or the tests will fail
+      return Object.assign({}, state, {status: 'online'})
+    default:
+      return state;
+  }
+};
+
+const wakeUp = () => {
+  return {
+    type: 'ONLINE'
+  }
+};
+
+const store = Redux.createStore(immutableReducer);
+```
+
+---
+
+## React and Redux: Getting Started with React Redux
+
+- This series of challenges introduces how to use Redux with React. First, here's a review of some of the key principles of each technology. React is a view library that you provide with data, then it renders the view in an efficient, predictable way. Redux is a state management framework that you can use to simplify the management of your application's state. Typically, in a React Redux app, you create a single Redux store that manages the state of your entire app. Your React components subscribe to only the pieces of data in the store that are relevant to their role. Then, you dispatch actions directly from React components, which then trigger store updates.
+
+- Although React components can manage their own state locally, when you have a complex app, it's generally better to keep the app state in a single location with Redux. There are exceptions when individual components may have local state specific only to them. Finally, because Redux is not designed to work with React out of the box, you need to use the react-redux package. It provides a way for you to pass Redux state and dispatch to your React components as props.
+
+- Over the next few challenges, first, you'll create a simple React component which allows you to input new text messages. These are added to an array that's displayed in the view. This should be a nice review of what you learned in the React lessons. Next, you'll create a Redux store and actions that manage the state of the messages array. Finally, you'll use react-redux to connect the Redux store with your component, thereby extracting the local state into the Redux store.
+
+- Start with a `DisplayMessages` component. Add a `constructor` to this component and initialize it with a `state` that has two properties: `input`, that's set to an empty string, and `messages`, that's set to an empty array.
+
+```jsx
+class DisplayMessages extends React.Component {
+  // change code below this line
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      input: '',
+      messages: []
+    }
+  }
+  // change code above this line
+  render() {
+    return <div />
+  }
+};
+```
+
+## React and Redux: Manage State Locally First
+
+- Here you'll finish creating the `DisplayMessages` component.
+
+- First, in the `render()` method, have the component render an `input` element, `button` element, and `ul` element. When the `input` element changes, it should trigger a `handleChange()` method. Also, the `input` element should render the value of `input` that's in the component's `state`. The `button` element should trigger a `submitMessage()` method when it's clicked.
+
+- Second, write these two methods. The `handleChange()` method should update the input with what the user is typing. The `submitMessage()` method should concatenate the current message (stored in input) to the messages array in local state, and clear the value of the input.
+
+- Finally, use the `ul` to map over the array of messages and render it to the screen as a list of `li` elements.
+
+```jsx
+class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      messages: []
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.submitMessage = this.submitMessage.bind(this);
+  }
+  // add handleChange() and submitMessage() methods here
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    })
+  }
+
+  submitMessage() {
+    this.setState({
+      messages: [...this.state.messages, this.state.input],
+      input: ''
+    })
+  }
+
+  render() {
+    const list = this.state.messages.map((m) => <li>{m}</li>)
+    return (
+      <div>
+        <h2>Type in a new Message:</h2>
+        { /* render an input, button, and ul here */ }
+        <input value={this.state.input} onChange={this.handleChange}></input>
+        <button onClick={this.submitMessage}>Submit</button>
+        <ul>{list}</ul>
+        { /* change code above this line */ }
+      </div>
+    );
+  }
+};
+```
+
+## React and Redux: Extract State Logic to Redux
+
+- Now that you finished the React component, you need to move the logic it's performing locally in its `state` into Redux. This is the first step to connect the simple React app to Redux. The only functionality your app has is to add new messages from the user to an unordered list. The example is simple in order to demonstrate how React and Redux work together.
+
+- First, define an action type `'ADD'` and set it to a const `ADD`. Next, define an action creator `addMessage()` which creates the action to add a message. You'll need to pass a message to this action creator and include the message in the returned action.
+
+- Then create a reducer called `messageReducer()` that handles the `state` for the messages. The initial state should equal an empty array. This reducer should add a message to the array of messages held in `state`, or return the current `state`. Finally, create your Redux store and pass it the `reducer`.
+
+```jsx
+const ADD = 'ADD';
+
+const addMessage = (message) => {
+  return {
+    type: ADD,
+    message: message
+  };
+};
+
+ const messageReducer = (state = [], action) => {
+  return [...state, action.message];
+//   function messageReducer (previousState, action) {
+//   return [...previousState, action.message];
+}
+
+let store = {
+  state: [],
+  getState: () => store.state,
+  dispatch: (action) => {
+    if (action.type === ADD) {
+      store.state = messageReducer(store.state, action);
+    }
+  }
+};
 ```
